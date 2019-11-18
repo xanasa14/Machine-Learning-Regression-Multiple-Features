@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+from sklearn import tree
+diabetesDF = pd.read_csv('diabetes2.csv')
+
+
+
+Glucose = np.array(diabetesDF["Glucose"])
+BMI = np.array(diabetesDF["BMI"])
+Outcome = np.array(diabetesDF["Outcome"])
+features = []
+out = []
+
+for i in range(len(Outcome)):
+    features.append([])
+    out.append(Outcome[i])
+
+for i in range(len(Outcome)):
+    features[i].append(Glucose[i])
+    features[i].append(BMI[i])
+    #features.append(BMI)
+
+#print(features)
+#print(out)
+
+
+# Training classifier
+classifier = tree.DecisionTreeClassifier() # using decision tree classifier
+classifier = classifier.fit(features, out) # Find patterns in data
+# Making predictions
+print (classifier.predict([[135, 26]]))
